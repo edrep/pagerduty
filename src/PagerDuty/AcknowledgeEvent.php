@@ -24,10 +24,6 @@ class AcknowledgeEvent extends Event
         parent::__construct($routingKey, 'acknowledge');
 
         if (empty($dedupKey)) {
-            if (empty($summary)) {
-                throw new PagerDutyConfigurationException('Cannot generate dedup key from empty summary');
-            }
-
             $dedupKey = $this->buildAutoDeDupKey($summary);
         }
 

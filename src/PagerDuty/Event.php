@@ -2,6 +2,7 @@
 
 namespace PagerDuty;
 
+use PagerDuty\Exceptions\PagerDutyConfigurationException;
 use PagerDuty\Exceptions\PagerDutyException;
 
 /**
@@ -47,10 +48,16 @@ abstract class Event implements \ArrayAccess, \JsonSerializable
     }
 
     /**
+     * @param $summary
      * @return string
+     * @throws PagerDutyConfigurationException
      */
     public function buildAutoDeDupKey($summary)
     {
+        if (empty($summary)) {
+            throw new PagerDutyConfigurationException('Cannot generate dedup key from empty summary');
+        }
+
         return 'md5-' . md5($summary);
     }
 
