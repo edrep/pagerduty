@@ -47,6 +47,14 @@ abstract class Event implements \ArrayAccess, \JsonSerializable
     }
 
     /**
+     * @return string
+     */
+    public function buildAutoDeDupKey($summary)
+    {
+        return 'md5-' . md5($summary);
+    }
+
+    /**
      * Get the request json as an array
      * Useful for debugging or logging.
      *

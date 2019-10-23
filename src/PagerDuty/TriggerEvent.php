@@ -191,7 +191,7 @@ class TriggerEvent extends Event
     public function toArray()
     {
         if ($this->autoDeDupKey) {
-            $this->setDeDupKey("md5-" . md5($this->dict['payload']['summary']));
+            $this->setDeDupKey($this->buildAutoDeDupKey($this->dict['payload']['summary']));
         }
 
         $ret = $this->dict;
